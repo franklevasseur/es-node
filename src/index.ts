@@ -1,7 +1,7 @@
 import * as utils from "./utils";
 import * as esbuild from "esbuild";
 
-export default async (argv: string[]) => {
+const main = async (argv: string[]) => {
   if (argv.length < 1) {
     throw new Error("No entrypoint specified");
   }
@@ -34,4 +34,10 @@ export default async (argv: string[]) => {
   }
 
   utils.require.requireJsCode(artifact.text);
+  process.exit(0);
 };
+
+main(process.argv.slice(2)).catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
